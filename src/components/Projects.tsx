@@ -1,11 +1,40 @@
-import { motion } from 'framer-motion';
-import { Link } from 'react-router';
-import { ExternalLink, Github, Eye, ArrowRight } from 'lucide-react';
-import { featuredProjects } from '../data/projects';
+import { motion } from "framer-motion";
+import { Link } from "react-router";
+import { ExternalLink, Github, Eye, ArrowRight } from "lucide-react";
+
+const projectsData = [
+  {
+    _id: "674015a9d2c5972892e02abd",
+    thumbnail:
+      "https://res.cloudinary.com/ddoacwzvp/image/upload/v1732253003/Screenshot_2024-11-22_at_11-22-37_Meeting_room_booking_system_x8dzrg.png",
+    title: "Meeting Room Management System",
+    description:
+      "A web-based application to manage and book meeting rooms with real-time availability and payment integration.",
+    technologies: ["React", "Node.js", "MongoDB", "Tailwind", "AmarPay"],
+    liveLink: "https://meeting-room-five.vercel.app/",
+    githubLink: "https://github.com/devhasanmia/meeting-room",
+    projectType: "personal",
+  },
+  {
+    _id: "674015a9d2c5972892e02abe",
+    thumbnail:
+      "https://res.cloudinary.com/deicntkum/image/upload/v1756656282/Screenshot_2025-08-31_at_22-02-05_Digital_Wallet_gx0pco.png",
+    title: "Digital Wallet Platform",
+    description: `A modern, secure, and user-friendly Digital Wallet System frontend (similar to bKash/Nagad), built with React, Redux Toolkit, RTK Query, and Tailwind CSS.
+This application provides a role-based dashboard experience for Users, Agents, and Admins, with seamless API integration and responsive UI.`,
+    technologies: ["React", "Express", "MongoDB", "Mongoose", "Redux"],
+    liveLink: "https://digital-wallet-dev.netlify.app//",
+    githubLink: "https://github.com/devhasanmia/digital-wallet",
+    projectType: "Personal",
+  }
+];
 
 const Projects = () => {
   return (
-    <section id="projects" className="py-20 bg-gray-50 dark:bg-gray-900 transition-colors duration-300">
+    <section
+      id="projects"
+      className="py-20 bg-gray-50 dark:bg-gray-900 transition-colors duration-300"
+    >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Header */}
         <motion.div
@@ -19,17 +48,13 @@ const Projects = () => {
             Featured Projects
           </h2>
           <div className="w-24 h-1 bg-gradient-to-r from-blue-600 to-purple-600 mx-auto rounded-full"></div>
-          <p className="text-gray-600 dark:text-gray-300 mt-6 max-w-2xl mx-auto">
-            Here are some of my latest projects that showcase my skills in full-stack development, 
-            UI/UX design, and modern web technologies.
-          </p>
         </motion.div>
 
-        {/* Project Cards */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-12">
-          {featuredProjects.map((project, index) => (
+        {/* Project Cards Grid */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+          {projectsData.map((project, index) => (
             <motion.div
-              key={project.id}
+              key={project._id}
               initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
@@ -39,14 +64,14 @@ const Projects = () => {
               {/* Thumbnail */}
               <div className="relative overflow-hidden">
                 <img
-                  src={project.image}
+                  src={project.thumbnail}
                   alt={project.title}
-                  className="w-full h-48 object-cover group-hover:scale-105 transition-transform duration-300"
+                  className="w-full h-52 object-cover group-hover:scale-105 transition-transform duration-300"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
                 <div className="absolute top-4 right-4">
                   <span className="px-3 py-1 bg-white/90 dark:bg-gray-700 dark:text-gray-200 text-gray-700 text-sm font-medium rounded-full">
-                    {project.category}
+                    {project.projectType}
                   </span>
                 </div>
               </div>
@@ -80,9 +105,9 @@ const Projects = () => {
                 {/* Actions */}
                 <div className="flex items-center justify-between">
                   <div className="flex space-x-3">
-                    {project.liveUrl && (
+                    {project.liveLink && (
                       <motion.a
-                        href={project.liveUrl}
+                        href={project.liveLink}
                         target="_blank"
                         rel="noopener noreferrer"
                         whileHover={{ scale: 1.05 }}
@@ -93,9 +118,9 @@ const Projects = () => {
                         <ExternalLink className="w-4 h-4" />
                       </motion.a>
                     )}
-                    {project.githubUrl && (
+                    {project.githubLink && (
                       <motion.a
-                        href={project.githubUrl}
+                        href={project.githubLink}
                         target="_blank"
                         rel="noopener noreferrer"
                         whileHover={{ scale: 1.05 }}
@@ -107,9 +132,9 @@ const Projects = () => {
                       </motion.a>
                     )}
                   </div>
-                  
+
                   <Link
-                    to={`/project/${project.id}`}
+                    to="#"
                     className="flex items-center space-x-1 text-blue-600 dark:text-blue-400 font-medium hover:text-blue-700 dark:hover:text-blue-300 transition-colors group"
                   >
                     <Eye className="w-4 h-4" />
@@ -121,23 +146,6 @@ const Projects = () => {
             </motion.div>
           ))}
         </div>
-
-        {/* View All Button */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6 }}
-          className="text-center"
-        >
-          <Link
-            to="/projects"
-            className="inline-flex items-center space-x-2 bg-gradient-to-r from-blue-600 to-purple-600 text-white px-8 py-4 rounded-xl font-semibold hover:shadow-lg transition-all duration-300 group"
-          >
-            <span>View All Projects</span>
-            <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
-          </Link>
-        </motion.div>
       </div>
     </section>
   );

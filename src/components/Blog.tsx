@@ -1,11 +1,29 @@
-import { motion } from 'framer-motion';
-import { Link } from 'react-router';
-import { Calendar, Clock, ArrowRight, Tag } from 'lucide-react';
-import { featuredBlogPosts } from '../data/blogPosts';
+import { motion } from "framer-motion";
+import { Link } from "react-router";
+import { Calendar, ArrowRight, Tag } from "lucide-react";
 
-const Blog = () => {
+interface BlogPost {
+  _id: string;
+  thumbnail: string;
+  title: string;
+  category: string;
+  author: string;
+  tags: string[];
+  description: string;
+  status: string;
+  createdAt: string;
+}
+
+interface BlogProps {
+  blogs: BlogPost[];
+}
+
+const Blog = ({ blogs }: BlogProps) => {
   return (
-    <section id="blog" className="py-20 bg-white dark:bg-gray-900 transition-colors duration-300">
+    <section
+      id="blog"
+      className="py-20 bg-white dark:bg-gray-900 transition-colors duration-300"
+    >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Heading */}
         <motion.div
@@ -20,16 +38,16 @@ const Blog = () => {
           </h2>
           <div className="w-24 h-1 bg-gradient-to-r from-blue-600 to-purple-600 mx-auto rounded-full"></div>
           <p className="text-gray-600 dark:text-gray-300 mt-6 max-w-2xl mx-auto">
-            Sharing insights, tutorials, and thoughts on web development, technology trends, 
-            and best practices in software engineering.
+            Sharing insights, tutorials, and thoughts on web development,
+            technology trends, and best practices in software engineering.
           </p>
         </motion.div>
 
         {/* Blog Cards */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-12">
-          {featuredBlogPosts.map((post, index) => (
+          {blogs.map((post, index) => (
             <motion.article
-              key={post.id}
+              key={post._id}
               initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
@@ -41,7 +59,7 @@ const Blog = () => {
               {/* Thumbnail */}
               <div className="relative overflow-hidden">
                 <img
-                  src={post.image}
+                  src={post.thumbnail}
                   alt={post.title}
                   className="w-full h-48 object-cover group-hover:scale-105 transition-transform duration-300"
                 />
@@ -58,20 +76,24 @@ const Blog = () => {
                 <div className="flex items-center space-x-4 text-sm text-gray-500 dark:text-gray-400 mb-3">
                   <div className="flex items-center space-x-1">
                     <Calendar className="w-4 h-4" />
-                    <span>{new Date(post.publishDate).toLocaleDateString()}</span>
+                    <span>
+                      {new Date(post.createdAt).toLocaleDateString("en-US", {
+                        year: "numeric",
+                        month: "short",
+                        day: "numeric",
+                      })}
+                    </span>
                   </div>
-                  <div className="flex items-center space-x-1">
-                    <Clock className="w-4 h-4" />
-                    <span>{post.readTime}</span>
-                  </div>
+                  <span>•</span>
+                  <span>{post.author}</span>
                 </div>
 
                 <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-3 group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors">
                   {post.title}
                 </h3>
-                
+
                 <p className="text-gray-600 dark:text-gray-300 mb-4 line-clamp-3">
-                  {post.excerpt}
+                  {post.description}
                 </p>
 
                 {/* Tags & Link */}
@@ -91,9 +113,9 @@ const Blog = () => {
                       </span>
                     ))}
                   </div>
-                  
+
                   <Link
-                    to={`/blog/${post.id}`}
+                    to="#"
                     className="flex items-center space-x-1 text-blue-600 dark:text-blue-400 font-medium 
                                hover:text-blue-700 dark:hover:text-blue-300 transition-colors group"
                   >
