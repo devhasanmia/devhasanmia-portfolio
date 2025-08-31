@@ -9,7 +9,7 @@ const Banner = () => {
     { icon: Mail, href: 'mailto:dev.hasanmia@gmail.com', label: 'Email' },
   ];
   const email = 'dev.hasanmia@gmail.com';
-  const location = 'Natore, Bangladesh';
+  const location = 'whatsApp: +8801740398196';
   return (
     <section className="min-h-screen flex items-center justify-center relative overflow-hidden dark:bg-gradient-to-br dark:from-gray-900 dark:to-black text-gray-900 dark:text-white py-12 px-4 sm:px-6 lg:px-8">
       {/* Background Elements - Show only in dark mode */}
