@@ -11,7 +11,7 @@ const Banner = () => {
   const email = 'dev.hasanmia@gmail.com';
   const location = 'Natore, Bangladesh';
   return (
-    <section className="min-h-screen flex items-center justify-center relative overflow-hidden  dark:bg-gradient-to-br dark:from-gray-900 dark:to-black text-gray-900 dark:text-white py-12 px-4 sm:px-6 lg:px-8">
+    <section className="min-h-screen flex items-center justify-center relative overflow-hidden dark:bg-gradient-to-br dark:from-gray-900 dark:to-black text-gray-900 dark:text-white py-12 px-4 sm:px-6 lg:px-8">
       {/* Background Elements - Show only in dark mode */}
       <div className="absolute inset-0 hidden dark:block bg-gradient-to-br from-blue-900/10 via-purple-900/10 to-emerald-900/10 opacity-50"></div>
       <div className="absolute top-20 left-20 w-72 h-72 hidden dark:block bg-blue-600/15 rounded-full mix-blend-screen filter blur-xl opacity-60 animate-pulse"></div>

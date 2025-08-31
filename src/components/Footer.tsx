@@ -73,7 +73,7 @@ const Footer = () => {
 
                 <div className="border-t border-gray-300 dark:border-gray-800 mt-8 pt-8 text-center">
                     <p className="text-gray-500 dark:text-gray-400">
-                        &copy; 2024 -{new Date().getFullYear()} MD. HASAN MIA. All rights reserved.
+                        &copy; 2024 - {new Date().getFullYear()} MD. HASAN MIA. All rights reserved.
                     </p>
                 </div>
             </div>
