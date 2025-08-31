@@ -8,7 +8,7 @@ const PublicLayout = () => {
         <div className="min-h-screen flex flex-col">
             <Navbar />
 
-            <main className="flex-1 max-w-4xl mx-auto w-full p-6">
+            <main className="">
                 <Outlet />
             </main>
 
