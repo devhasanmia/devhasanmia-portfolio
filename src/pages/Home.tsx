@@ -17,7 +17,6 @@ const Home = () => {
         <Projects/>
         <Blog blogs={blogsData.data}/>
         <Contact/>
-        
     </div>
   )
 }

@@ -1,35 +1,31 @@
 import { motion } from "framer-motion";
 import { Link } from "react-router";
 import { ExternalLink, Github, Eye, ArrowRight } from "lucide-react";
-
-const projectsData = [
-  {
-    _id: "674015a9d2c5972892e02abd",
-    thumbnail:
-      "https://res.cloudinary.com/ddoacwzvp/image/upload/v1732253003/Screenshot_2024-11-22_at_11-22-37_Meeting_room_booking_system_x8dzrg.png",
-    title: "Meeting Room Management System",
-    description:
-      "A web-based application to manage and book meeting rooms with real-time availability and payment integration.",
-    technologies: ["React", "Node.js", "MongoDB", "Tailwind", "AmarPay"],
-    liveLink: "https://meeting-room-five.vercel.app/",
-    githubLink: "https://github.com/devhasanmia/meeting-room",
-    projectType: "personal",
-  },
-  {
-    _id: "674015a9d2c5972892e02abe",
-    thumbnail:
-      "https://res.cloudinary.com/deicntkum/image/upload/v1756656282/Screenshot_2025-08-31_at_22-02-05_Digital_Wallet_gx0pco.png",
-    title: "Digital Wallet Platform",
-    description: `A modern, secure, and user-friendly Digital Wallet System frontend (similar to bKash/Nagad), built with React, Redux Toolkit, RTK Query, and Tailwind CSS.
-This application provides a role-based dashboard experience for Users, Agents, and Admins, with seamless API integration and responsive UI.`,
-    technologies: ["React", "Express", "MongoDB", "Mongoose", "Redux"],
-    liveLink: "https://digital-wallet-dev.netlify.app//",
-    githubLink: "https://github.com/devhasanmia/digital-wallet",
-    projectType: "Personal",
-  }
-];
+import { useGetAllProjectQuery } from "../redux/features/projects/projectApi";
 
 const Projects = () => {
+  const { data: project, isLoading, isError } = useGetAllProjectQuery("");
+
+  if (isLoading) {
+    return (
+      <section className="py-20 bg-gray-50 dark:bg-gray-900">
+        <div className="max-w-7xl mx-auto text-center text-gray-600 dark:text-gray-300">
+          Loading projects...
+        </div>
+      </section>
+    );
+  }
+
+  if (isError || !project?.data) {
+    return (
+      <section className="py-20 bg-gray-50 dark:bg-gray-900">
+        <div className="max-w-7xl mx-auto text-center text-red-500">
+          Failed to load projects!
+        </div>
+      </section>
+    );
+  }
+
   return (
     <section
       id="projects"
@@ -52,9 +48,9 @@ const Projects = () => {
 
         {/* Project Cards Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {projectsData.map((project, index) => (
+          {project.data.map((proj: any, index: number) => (
             <motion.div
-              key={project._id}
+              key={proj._id}
               initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
@@ -64,14 +60,14 @@ const Projects = () => {
               {/* Thumbnail */}
               <div className="relative overflow-hidden">
                 <img
-                  src={project.thumbnail}
-                  alt={project.title}
+                  src={proj.thumbnail}
+                  alt={proj.title}
                   className="w-full h-52 object-cover group-hover:scale-105 transition-transform duration-300"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
                 <div className="absolute top-4 right-4">
                   <span className="px-3 py-1 bg-white/90 dark:bg-gray-700 dark:text-gray-200 text-gray-700 text-sm font-medium rounded-full">
-                    {project.projectType}
+                    {proj.projectType}
                   </span>
                 </div>
               </div>
@@ -79,15 +75,16 @@ const Projects = () => {
               {/* Content */}
               <div className="p-6">
                 <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-3 group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors">
-                  {project.title}
+                  {proj.title}
                 </h3>
                 <p className="text-gray-600 dark:text-gray-300 mb-4 line-clamp-3">
-                  {project.description}
+                  {/* description বড় হলে কেটে দেখাচ্ছি */}
+                  {proj.description.replace(/<[^>]+>/g, "").slice(0, 150)}...
                 </p>
 
                 {/* Technologies */}
                 <div className="flex flex-wrap gap-2 mb-6">
-                  {project.technologies.slice(0, 3).map((tech) => (
+                  {proj.technologies.slice(0, 3).map((tech: string) => (
                     <span
                       key={tech}
                       className="px-2 py-1 bg-blue-100 dark:bg-blue-900 text-blue-800 dark:text-blue-200 text-xs font-medium rounded-md"
@@ -95,9 +92,9 @@ const Projects = () => {
                       {tech}
                     </span>
                   ))}
-                  {project.technologies.length > 3 && (
+                  {proj.technologies.length > 3 && (
                     <span className="px-2 py-1 bg-gray-100 dark:bg-gray-700 text-gray-600 dark:text-gray-300 text-xs font-medium rounded-md">
-                      +{project.technologies.length - 3} more
+                      +{proj.technologies.length - 3} more
                     </span>
                   )}
                 </div>
@@ -105,9 +102,9 @@ const Projects = () => {
                 {/* Actions */}
                 <div className="flex items-center justify-between">
                   <div className="flex space-x-3">
-                    {project.liveLink && (
+                    {proj.liveLink && (
                       <motion.a
-                        href={project.liveLink}
+                        href={proj.liveLink}
                         target="_blank"
                         rel="noopener noreferrer"
                         whileHover={{ scale: 1.05 }}
@@ -118,9 +115,9 @@ const Projects = () => {
                         <ExternalLink className="w-4 h-4" />
                       </motion.a>
                     )}
-                    {project.githubLink && (
+                    {proj.githubLink && (
                       <motion.a
-                        href={project.githubLink}
+                        href={proj.githubLink}
                         target="_blank"
                         rel="noopener noreferrer"
                         whileHover={{ scale: 1.05 }}
@@ -134,7 +131,7 @@ const Projects = () => {
                   </div>
 
                   <Link
-                    to="#"
+                    to={`/project-datails/${proj._id}`}
                     className="flex items-center space-x-1 text-blue-600 dark:text-blue-400 font-medium hover:text-blue-700 dark:hover:text-blue-300 transition-colors group"
                   >
                     <Eye className="w-4 h-4" />
