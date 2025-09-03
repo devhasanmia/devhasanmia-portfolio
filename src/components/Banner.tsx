@@ -49,8 +49,8 @@ const Banner = () => {
             <div className="relative w-40 h-40 rounded-full bg-gray-300 dark:bg-gray-700 p-1">
               <div className="absolute inset-0 rounded-full border-4 border-green-600 animate-pulse-slow z-0"></div>
               <img
-                src="https://yt3.googleusercontent.com/ytc/AIdro_mU6iTvJnI51qTRwy1vmExh2SmF0vwm0mW3_nSuzuNekQ=s900-c-k-c0x00ffffff-no-rj"
-                alt="Hasan Mia"
+                src="https://res.cloudinary.com/deicntkum/image/upload/v1756893262/IMG_20250901_165641_230-Photoroom_1_1_1_-modified_tmasvr.png"
+                alt="Md. Hasan Mia"
                 className="w-full h-full object-cover rounded-full z-10 relative"
               />
               <span className="absolute bottom-2 right-2 block w-4 h-4 bg-green-600 rounded-full ring-2 ring-white dark:ring-gray-900 z-20"></span>
